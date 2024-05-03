@@ -76,8 +76,10 @@ def main():
                     except Exception as e:
                         st.error(f"Error downloading: {e}")
 
-            # Button to display download options for each resolution
-            if st.button(f"{stream.resolution} ({int(stream.abr) // 1000}kbps)", key=stream.itag):
+
+                # Button to display download options for each resolution
+                if st.button(f"{stream.resolution} ({int(''.join(filter(str.isdigit, stream.abr))) // 1000}kbps)", key=stream.itag):
+
                 download_video(stream)
 
 
