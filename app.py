@@ -77,7 +77,7 @@ def main():
                         st.error(f"Error downloading: {e}")
 
             # Button to display download options for each resolution
-            if st.button(f"{stream.resolution} ({stream.abr // 1000}kbps)", key=stream.itag):
+            if st.button(f"{stream.resolution} ({int(stream.abr) // 1000}kbps)", key=stream.itag):
                 download_video(stream)
 
 
