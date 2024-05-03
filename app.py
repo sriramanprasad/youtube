@@ -80,7 +80,7 @@ def main():
                 # Button to display download options for each resolution
                 if st.button(f"{stream.resolution} ({int(''.join(filter(str.isdigit, stream.abr))) // 1000}kbps)", key=stream.itag):
 
-                download_video(stream)
+                    download_video(stream)
 
 
 if __name__ == "__main__":
