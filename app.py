@@ -10,7 +10,7 @@ if not os.path.exists(download_dir):
 
 # Set Streamlit app configuration
 st.set_page_config(
-    page_title="YTD", icon="", layout="wide"
+    page_title="YTD", icon="🎞️", layout="wide"
 )
 
 
