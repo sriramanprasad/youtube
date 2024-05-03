@@ -10,27 +10,28 @@ if not os.path.exists(download_dir):
 
 # Set Streamlit app configuration
 st.set_page_config(
-    page_title="YTD", page_icon="🎞️", layout="wide"
+    page_title="YTD", page_icon="🚀", layout="wide"
 )
 
 
-@st.cache_data  # Use st.cache_data for caching retrieved video info
+@st.cache_data  # Use st.cache for caching retrieved video info
 def get_info(url):
     try:
         yt = YouTube(url)
         streams = yt.streams.filter(progressive=True, type="video")
         details = {}
         details["thumbnail_url"] = yt.thumbnail_url
-        details["streams"] = streams
-        details["title"] = yt.title
-        details["length"] = yt.length / 60  # Convert length to minutes
+        details["streams"] = []
 
         # Extract resolutions and itags using regular expressions
-        for stream in details["streams"]:
+        for stream in streams:
             res_match = re.search(r"(\d+)[p|i]", stream.resolution)
             if res_match:
                 stream.resolution = res_match.group(1) + "p"
             details["streams"].append(stream)
+
+        details["title"] = yt.title
+        details["length"] = yt.length / 60  # Convert length to minutes
 
         return details
     except Exception as e:
@@ -76,9 +77,10 @@ def main():
                         st.error(f"Error downloading: {e}")
 
             # Button to display download options for each resolution
-            if st.button(f"{stream.resolution} ({stream.abr // 1000}kbps)", key=stream_.itag):
+            if st.button(f"{stream.resolution} ({stream.abr // 1000}kbps)", key=stream.itag):
                 download_video(stream)
 
 
 if __name__ == "__main__":
     main()
+
